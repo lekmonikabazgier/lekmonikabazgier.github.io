@@ -526,6 +526,13 @@ img {
   color: var(--muted);
 }
 
+.gallery__note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
 @media (min-width: 720px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
