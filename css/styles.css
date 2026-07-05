@@ -1,0 +1,1575 @@
+/* =========================================================
+   Monika Bazgier — Medycyna estetyczna
+   Styl inspirowany stonowaną, elegancką estetyką (krem + greige,
+   lekki serif display + czysty sans, przyciski outline, pasy).
+   ========================================================= */
+
+:root {
+  --cream: #f5f3ee;
+  --greige: #cac3ba;
+  --greige-soft: #ddd8d0;
+  --surface: #fffdfa;
+  --ink: #3f3a34;
+  --muted: #6e675e;
+  --line: #bdb5a9;
+  --line-soft: #e2ddd3;
+  --on-dark: #f1ede5;
+  --on-dark-muted: rgba(241, 237, 229, 0.64);
+  --on-dark-line: rgba(241, 237, 229, 0.18);
+  --shadow: 0 26px 60px rgba(63, 58, 52, 0.12);
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans:
+    "Jost", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --maxw: 1120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- Layout helpers ---------- */
+.band {
+  padding: 72px 20px;
+  background: var(--cream);
+}
+
+.band--greige {
+  background: var(--greige);
+}
+
+.band--greige .kicker,
+.band--greige .lead {
+  color: var(--ink);
+}
+
+/* Zmniejszony odstęp między sąsiadującymi, powiązanymi sekcjami
+   (np. Konsultacje → Oferta zabiegowa). Selektor złożony (.band.band--…)
+   ma wyższą swoistość niż responsywne reguły .band, więc nadpisuje ich
+   padding także powyżej 720 i 1040 px. */
+.band.band--tight-bottom {
+  padding-bottom: 28px;
+}
+
+.band.band--tight-top {
+  padding-top: 28px;
+}
+
+.container {
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+}
+
+.section-head {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-head h1,
+.section-head h2 {
+  font-size: clamp(1.7rem, 5vw, 3rem);
+}
+
+.section-head .lead {
+  margin-top: 14px;
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.kicker {
+  margin: 0 0 14px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 14px 26px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn--outline {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--ink);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 12px 16px;
+  color: var(--cream);
+  background: var(--ink);
+  border-radius: 4px;
+  text-decoration: none;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------- Brand ---------- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  flex: 0 0 84px;
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.brand__mark--sm {
+  width: 70px;
+  height: 70px;
+  flex-basis: 70px;
+  font-size: 1.5rem;
+}
+
+/* Logo SVG w kółku brand__mark (header/footer) i hero__mark (hero na index).
+   Obraz zajmuje 74% szerokości kółka, dzięki czemu okrągła ramka jest wciąż
+   widoczna jako subtelne obramowanie loga. */
+.brand__mark-img {
+  display: block;
+  width: 74%;
+  height: auto;
+  max-height: 74%;
+  object-fit: contain;
+}
+
+.brand__lockup {
+  display: grid;
+  line-height: 1.2;
+}
+
+.brand__name {
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  letter-spacing: 0.02em;
+}
+
+.brand__meta {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 84px;
+  padding: 16px 20px;
+  background: rgba(255, 253, 250, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: var(--line-soft);
+  box-shadow: 0 12px 30px rgba(63, 58, 52, 0.06);
+}
+
+.nav-toggle {
+  display: inline-grid;
+  place-content: center;
+  gap: 5px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ink);
+}
+
+.site-nav {
+  position: absolute;
+  top: calc(100% + 1px);
+  right: 16px;
+  left: 16px;
+  display: none;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.site-nav.is-open {
+  display: grid;
+  gap: 6px;
+}
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 8px 12px;
+  font-size: 0.96rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 4px;
+}
+
+.site-nav a:not(.btn):hover,
+.site-nav a:not(.btn):focus-visible,
+.site-nav a[aria-current="page"]:not(.btn) {
+  color: var(--ink);
+  background: rgba(63, 58, 52, 0.07);
+}
+
+.nav__cta {
+  margin-top: 4px;
+}
+
+.site-nav .nav__cta[aria-current="page"] {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+/* ---------- Hero (centered) ---------- */
+.hero {
+  text-align: center;
+  padding: clamp(64px, 12vw, 140px) 20px;
+  background: var(--cream);
+}
+
+.hero__inner {
+  width: min(100%, 760px);
+  margin-inline: auto;
+}
+
+.hero__mark {
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 26px;
+  font-family: var(--serif);
+  font-size: 3rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 8vw, 5rem);
+  letter-spacing: 0.02em;
+}
+
+.hero__tagline {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 3vw, 1.4rem);
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: grid;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 38px;
+}
+
+.hero__actions .btn {
+  min-width: min(260px, 100%);
+}
+
+/* ---------- Cards (trust / opinie) ---------- */
+.card-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.card {
+  display: grid;
+  gap: 10px;
+  padding: 30px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+}
+
+/* ---------- Split (o mnie / teaser) ---------- */
+.split {
+  display: grid;
+  gap: 36px;
+  align-items: center;
+}
+
+.split__media {
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  background: var(--greige-soft);
+}
+
+.split__media img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+}
+
+.split__body h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.split__body p + p {
+  margin-top: 16px;
+}
+
+.split__body .btn {
+  margin-top: 26px;
+}
+
+/* About subsections (o mnie) */
+.about-points {
+  margin-top: 28px;
+  display: grid;
+  gap: 26px;
+}
+
+.about-point {
+  padding-left: 22px;
+  border-left: 2px solid var(--line);
+}
+
+.split__body .about-point__title {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.about-point p {
+  margin: 0;
+}
+
+/* ---------- Oferta zabiegowa ---------- */
+.offer-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.offer {
+  padding: 28px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.offer h2 {
+  font-family: var(--sans);
+  font-size: 1.18rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.offer__sub {
+  margin: 6px 0 14px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.offer ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.offer li {
+  margin: 6px 0;
+}
+
+/* ---------- Galeria ---------- */
+.gallery {
+  display: grid;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.gallery__item {
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+}
+
+.gallery__item img {
+  width: 100%;
+  height: auto;
+}
+
+.gallery__cap {
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+@media (min-width: 720px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ---------- Opinie (karuzela Splide) ---------- */
+.reviews-carousel {
+  position: relative;
+  margin-top: 36px;
+}
+
+.reviews-carousel .splide__track {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 4px 10px;
+}
+
+.reviews-carousel .splide__list {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reviews-carousel .splide__slide {
+  height: auto;
+}
+
+.reviews-carousel__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 26px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.reviews-carousel__stars {
+  color: #bf9b5f;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+}
+
+.reviews-carousel__quote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.14rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  line-clamp: 7;
+  overflow: hidden;
+}
+
+.reviews-carousel__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.reviews-carousel__author {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.reviews-carousel__detail {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.reviews-carousel__source-tag {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 3px 10px;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.reviews-carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.reviews-carousel__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.reviews-carousel__btn:hover,
+.reviews-carousel__btn:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.reviews-carousel__source {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.reviews-carousel__source a {
+  color: var(--ink);
+  text-underline-offset: 0.18em;
+}
+
+/* ---------- Certyfikaty (karuzela Splide — wzór "Auto Width/Height") ---------- */
+.certs-carousel {
+  position: relative;
+  /* Cała karuzela (slajdy + strzałki) zamknięta w jasnoszarym
+     "kontenerze"-karcie, żeby certyfikaty wyraźnie się na nim odcinały
+     kontrastem. Szerokość celowo niezawężona (pełna szerokość sekcji jak
+     reszta strony), żeby jednocześnie mieściły się w niej ok. 3 certyfikaty. */
+  margin: 36px auto 0;
+  padding: 28px 16px 22px;
+  background: var(--greige);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* Splide dostarcza tylko "core" CSS (bez motywu) — kolory, odstępy i
+   powiększenie aktywnego slajdu dopasowujemy tutaj do reszty strony.
+   Powtarzamy tu też "display: flex" i "position/overflow" toru jako
+   zabezpieczenie na wypadek chwilowego braku arkusza "splide-core.min.css"
+   (np. wolne łącze) — sam plik JS Splide i tak nadpisze te węzły poprawnie
+   po zamontowaniu karuzeli. */
+.certs-carousel .splide__track {
+  position: relative;
+  overflow: hidden;
+  /* Dodatkowy zapas pionowy i boczny, żeby aktywny (powiększony o 20%)
+     certyfikat nie był przycinany przez overflow toru karuzeli. */
+  padding: 40px 18px 46px;
+}
+
+.certs-carousel .splide__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.certs-carousel .splide__slide {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+@media (min-width: 720px) {
+  .certs-carousel .splide__slide {
+    width: 360px;
+  }
+}
+
+.certs-carousel__link {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  /* Reset domyślnych stylów przycisku — karta certyfikatu jest teraz
+     <button>, który otwiera podgląd w oknie modalnym, a nie odnośnikiem. */
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.certs-carousel__figure {
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    opacity 0.22s ease;
+}
+
+.certs-carousel__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 636;
+  object-fit: cover;
+  object-position: center;
+}
+
+.certs-carousel__link:hover .certs-carousel__figure,
+.certs-carousel__link:focus-visible .certs-carousel__figure {
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+/* Aktywny (wyśrodkowany) certyfikat: 20% większy i wyraźnie oprawiony
+   ramką — Splide sam dopisuje klasę "is-active" do bieżącego slajdu
+   (także przy zapętlonym przewijaniu), więc nie trzeba tego liczyć ręcznie. */
+.certs-carousel .splide__slide.is-active .certs-carousel__link {
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.certs-carousel .splide__slide.is-active .certs-carousel__figure {
+  border-color: var(--ink);
+  box-shadow:
+    0 0 0 3px var(--surface),
+    0 0 0 5px var(--ink),
+    var(--shadow);
+}
+
+.certs-carousel .splide__slide:not(.is-active) .certs-carousel__figure {
+  opacity: 0.82;
+}
+
+.certs-carousel__cap {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+}
+
+.certs-carousel__name {
+  font-size: 0.94rem;
+  color: var(--ink);
+}
+
+.certs-carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.certs-carousel__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.certs-carousel__btn:hover,
+.certs-carousel__btn:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.certs-carousel__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ---------- Popup z podglądem certyfikatu ---------- */
+.cert-modal {
+  position: fixed;
+  margin: auto;
+  /* Szerokość jako % szerokości ekranu, żeby zdjęcie certyfikatu było
+     realnie duże na typowych monitorach — 82vw daje spory podgląd, a
+     górny limit w px chroni przed absurdalnie wielkim oknem na bardzo
+     szerokich/4K ekranach. */
+  max-width: min(82vw, 1400px);
+  max-height: min(92vh, 960px);
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  /* Szare tło samego okna popupu (nie mylić z przyciemnionym tłem strony
+     poniżej, ::backdrop) — neutralny szary, żeby zdjęcie certyfikatu się
+     na nim wyraźnie odcinało. */
+  background: #4a4a4a;
+  box-shadow: var(--shadow);
+  overflow: visible;
+}
+
+.cert-modal::backdrop {
+  /* Wyszarzone, przyciemnione tło reszty strony pod popupem. */
+  background: rgba(90, 90, 90, 0.75);
+}
+
+.cert-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-modal__close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--cream);
+  background: var(--ink);
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.cert-modal__close:hover,
+.cert-modal__close:focus-visible {
+  transform: scale(1.08);
+}
+
+.cert-modal__viewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 22px 0;
+}
+
+.cert-modal__nav {
+  display: inline-grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.cert-modal__nav:hover,
+.cert-modal__nav:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.cert-modal__img {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  /* Wysokość liczona z vh (a nie sztywnych px), spójnie z szerokością
+     opartą na vw — zdjęcie skaluje się razem z rozmiarem ekranu. Odjęte
+     150px to zapas na padding widoku i pasek miniaturek pod spodem, żeby
+     popup nigdy nie był wyższy niż jego własny max-height. */
+  max-height: min(calc(92vh - 150px), 810px);
+  object-fit: contain;
+  background: var(--greige-soft);
+  border-radius: 6px;
+}
+
+.cert-modal__thumbs {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 16px 22px 22px;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.cert-modal__thumb-item {
+  flex: 0 0 auto;
+}
+
+.cert-modal__thumb {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.cert-modal__thumb img {
+  display: block;
+  width: 68px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.cert-modal__thumb:hover,
+.cert-modal__thumb:focus-visible {
+  opacity: 0.85;
+}
+
+.cert-modal__thumb.is-active {
+  /* Jasna ramka, żeby aktywna miniaturka była wyraźnie widoczna na
+     szarym tle popupu. */
+  border-color: var(--surface);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-modal__close {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Na urządzeniach mobilnych popup ma pełną szerokość ekranu, ale poza tym
+     działa tak jak w wersji desktopowej: wysokość dopasowana do treści,
+     wyśrodkowana w pionie (margin: auto z bazowej reguły), dzięki czemu
+     nad/pod oknem widać przyciemnione, półprzezroczyste tło reszty strony
+     (::backdrop) — a nie pełnoekranowy, jednolity prostokąt popupu. */
+  .cert-modal {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .cert-modal__close {
+    /* Bez marginesu po bokach nie ma już miejsca na przycisk "na zewnątrz"
+       popupu (ujemny offset w poziomie) — chowamy go do środka, w róg. */
+    top: 12px;
+    right: 12px;
+  }
+
+  .cert-modal__viewer {
+    /* Strzałki nie zajmują już miejsca w rzędzie obok zdjęcia — są nałożone
+       na jego krawędzie (position: absolute poniżej). Dzięki temu certyfikat
+       dostaje PEŁNĄ szerokość ekranu i jest wyraźnie większy oraz czytelniejszy
+       niż wtedy, gdy strzałki „zjadały" ~⅓ szerokości. */
+    position: relative;
+    flex: 0 1 auto;
+    min-height: 0;
+    gap: 0;
+    padding: 56px 0 0;
+  }
+
+  .cert-modal__nav {
+    /* Nawigacja jako półprzezroczyste, okrągłe przyciski nałożone na lewą i
+       prawą krawędź zdjęcia, pionowo wyśrodkowane — standardowy wzorzec
+       lightboxa, który nie odbiera zdjęciu szerokości. */
+    position: absolute;
+    /* Viewer ma 56px górnego paddingu (miejsce na przycisk zamknięcia), więc
+       samo top:50% wypadłoby ~28px nad środkiem zdjęcia — kompensujemy to
+       połową paddingu, żeby strzałki były dokładnie na osi pionowej zdjęcia. */
+    top: calc(50% + 28px);
+    transform: translateY(-50%);
+    z-index: 2;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: var(--ink);
+    background: rgba(245, 243, 238, 0.85);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(63, 58, 52, 0.35);
+  }
+
+  .cert-modal__nav--prev {
+    left: 6px;
+  }
+
+  .cert-modal__nav--next {
+    right: 6px;
+  }
+
+  .cert-modal__nav:hover,
+  .cert-modal__nav:focus-visible {
+    color: var(--cream);
+    background: var(--ink);
+  }
+
+  .cert-modal__img {
+    /* Pełna szerokość ekranu = maksymalny możliwy rozmiar poziomego
+       certyfikatu na pionowym telefonie. Wysokość wynika z proporcji, a
+       wyższy limit (72vh) pozwala zdjęciu urosnąć na wysokich ekranach oraz
+       w orientacji poziomej. */
+    width: 100%;
+    height: auto;
+    max-height: 72vh;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .cert-modal__thumbs {
+    /* Miniaturki tuż pod aktywnym zdjęciem, bez dużego odstępu. */
+    flex: 0 0 auto;
+    margin-top: 8px;
+    padding: 0 12px 14px;
+  }
+}
+
+/* ---------- Placówki (lokalizacje), pogrupowane wg miasta ---------- */
+.locations-groups {
+  margin-top: 36px;
+}
+
+.locations-group + .locations-group {
+  margin-top: 48px;
+}
+
+.locations-group__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 1.5rem;
+}
+
+.locations-group__count {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.locations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.location-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  color: var(--ink);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Karta nie jest już całościowo linkiem (żeby zmieściła się w niej
+   interaktywna mapa Google) — subtelne uniesienie zostaje jako reakcja na
+   najechanie na kartę, a rzeczywistym elementem klikalnym/focusowalnym
+   jest link "Umów online" niżej. */
+.location-card:hover {
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* Nagłówek karty (nazwa + ewentualna druga linia z pełną nazwą placówki)
+   ma stałą, przewidywalną wysokość niezależnie od długości tekstu, dzięki
+   czemu mapa i przycisk zaczynają się w tym samym miejscu we wszystkich
+   kartach w wierszu. */
+.location-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 3.7em;
+}
+
+.location-card__name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.location-card__sub {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.location-card__addr {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+/* Podgląd mapy Google (embed bez klucza API, przez "output=embed") z
+   przykładowym adresem — do podmiany na docelowy adres placówki. */
+.location-card__map {
+  margin-top: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--greige-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+}
+
+.location-card__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Fasada mapy: lekki placeholder wyświetlany zamiast osadzonej mapy Google.
+   Dopiero kliknięcie/aktywacja podmienia go na właściwy <iframe> (patrz
+   app.js) — dzięki temu strona z 10 lokalizacjami nie ładuje na start
+   dziesięciu ciężkich map, co znacząco skraca czas ładowania (zwłaszcza na
+   urządzeniach mobilnych). Adres placówki jest widoczny nad mapą niezależnie. */
+.location-card__map-facade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--greige-soft);
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.location-card__map-facade:hover,
+.location-card__map-facade:focus-visible {
+  color: var(--ink);
+  background: var(--greige);
+}
+
+.location-card__map-pin {
+  color: var(--muted);
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.location-card__map-facade:hover .location-card__map-pin,
+.location-card__map-facade:focus-visible .location-card__map-pin {
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+/* Stopka karty (przycisk + ewentualna notatka) jest zawsze dosunięta do
+   dołu karty (margin-top: auto), więc przyciski "Umów online" siedzą na
+   wspólnej linii we wszystkich kartach w rzędzie, niezależnie od długości
+   nazwy czy adresu nad nimi. */
+.location-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+/* Kafelki z rezerwacją dostępną przez dwie platformy naraz (Booksy i
+   ZnanyLekarz) dostają zamiast dwóch przycisków jeden wspólny blok:
+   podpis "Umów wizytę przez" i pod nim para przycisków z prawdziwym logo
+   każdej platformy (własne kolory marki, więc bez inwersji na hover —
+   zamiast tego delikatne podświetlenie tła). */
+.location-card__book-label {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+.location-card__platforms {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+/* Kafelki z rezerwacją tylko przez jedną platformę dostają ten sam blok
+   co kafelki dwuplatformowe (podpis + logo), ale w jednym egzemplarzu —
+   szerokość przycisku ograniczona (zamiast rozciągania na flex-grow),
+   żeby nie zajmował całej szerokości karty i zachował te same proporcje
+   co przyciski w parach. Ograniczenie nakładamy na sam przycisk, a nie
+   na kontener, żeby kontener mógł normalnie rozciągnąć się na pełną
+   szerokość karty (tak jak w wariancie dwuplatformowym) i wyśrodkować
+   pojedynczy przycisk przez justify-content: center. */
+.location-card__platforms--single .location-card__platform {
+  flex: 0 1 148px;
+  max-width: 148px;
+}
+
+.location-card__platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 46px;
+  padding: 8px 8px;
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.location-card__platform:hover,
+.location-card__platform:focus-visible {
+  background: var(--cream);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* Stała wysokość (nie max-height:100% zależne od zmiennej szerokości
+   kontenera) — dzięki temu logo Booksy i ZnanyLekarz mają dokładnie ten
+   sam rozmiar we wszystkich kafelkach, niezależnie od tego, czy przycisk
+   jest pojedynczy czy w parze. Szerokość dopasowuje się proporcjonalnie
+   do proporcji danego logo (Booksy jest smuklejsze niż ZnanyLekarz). */
+.location-card__platform-logo {
+  display: block;
+  width: auto;
+  height: 16px;
+  max-width: 100%;
+}
+
+/* Zbiorcze informacje o rezerwacji przez ZnanyLekarz — zamiast powtarzać
+   te same uwagi w kafelkach, wspólna notka (lub dwie) pod całą siatką
+   lokalizacji (pod sekcją "Poza Krakowem"), oddzielona jedną linią. */
+.locations-notes {
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.locations-notes .locations-note {
+  margin: 0;
+}
+
+.locations-notes .locations-note + .locations-note {
+  margin-top: 10px;
+}
+
+.locations-note strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (min-width: 560px) {
+  .locations {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .locations {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Kraków zajmuje pełną szerokość, a Gliwice, Dębica i Bochnia
+     układają się w jednym rzędzie pod spodem. Siatka ma 4 kolumny z tym
+     samym odstępem co karty Krakowa, więc kafelki miast mają identyczny
+     rozmiar jak kafelki Krakowa (czwarta kolumna pozostaje pusta). */
+  .locations-groups {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 18px;
+    row-gap: 48px;
+    align-items: start;
+  }
+
+  .locations-groups > .locations-group:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .locations-groups > .locations-group + .locations-group {
+    margin-top: 0;
+  }
+
+  .locations-groups > .locations-group:not(:first-child) .locations {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 56px 20px 28px;
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px 30px;
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
+}
+
+.site-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-footer .brand__mark {
+  color: var(--on-dark);
+  border-color: rgba(241, 237, 229, 0.4);
+}
+
+.site-footer .brand__meta {
+  color: var(--on-dark-muted);
+}
+
+.site-footer__contact-group {
+  display: grid;
+  gap: 8px;
+}
+
+.site-footer__contact-title {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+
+.site-footer__contact {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px 26px;
+}
+
+.site-footer__contact-item {
+  display: grid;
+  gap: 3px;
+}
+
+.site-footer__contact-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+
+.site-footer__contact a {
+  color: var(--on-dark);
+  text-decoration: none;
+}
+
+.site-footer__contact a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__copy {
+  width: min(100%, var(--maxw));
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--on-dark-line);
+  font-size: 0.8rem;
+  color: var(--on-dark-muted);
+}
+
+/* ---------- A11y ---------- */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 720px) {
+  .band {
+    padding: 96px 32px;
+  }
+
+  .hero__actions {
+    grid-auto-flow: column;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .site-nav.is-open {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .site-nav a:not(.btn) {
+    min-height: auto;
+    padding: 8px 6px;
+    background: transparent;
+  }
+
+  .site-nav a:not(.btn):hover,
+  .site-nav a:not(.btn):focus-visible,
+  .site-nav a[aria-current="page"]:not(.btn) {
+    background: transparent;
+    text-decoration: underline;
+  }
+
+  .nav__cta {
+    margin-top: 0;
+    margin-left: 8px;
+    min-height: 46px;
+  }
+
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer__inner {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1040px) {
+  .site-header {
+    padding-inline: 44px;
+  }
+
+  .band {
+    padding-block: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Nawigacja zapasowa (bez JS) ---------- */
+.fallback-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  justify-content: center;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.fallback-nav a {
+  color: var(--ink);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.fallback-nav a:hover {
+  text-decoration: underline;
+}

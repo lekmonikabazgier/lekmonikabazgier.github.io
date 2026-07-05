@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lekmonikabazgier.github.io/sitemap.xml
